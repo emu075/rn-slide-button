@@ -83,29 +83,30 @@ export type SlideButtonCommonProps = {
 
 const SlideButton = ({
   width,
-  height,
-  borderRadius,
-  completeThreshold,
-  disabled,
-  padding,
-  title,
+  height = DEFAULT_HEIGHT,
+  borderRadius = DEFAULT_BORDER_RADIUS,
+  completeThreshold = DEFAULT_COMPLETE_THRESHOLD,
+  disabled = false,
+  padding = DEFAULT_CONTAINER_PADDING,
+  title = DEFAULT_TITLE,
   titleContainerStyle,
   titleStyle,
   icon,
   thumbStyle,
   containerStyle,
   underlayStyle,
-  onReachedToStart,
-  onReachedToEnd,
-  onSlideEnd,
-  onSlideStart,
-  reverseSlideEnabled,
-  autoReset,
-  autoResetDelay,
-  animation,
-  animationDuration,
-  dynamicResetEnabled,
-  dynamicResetDelaying,
+  onReachedToStart = () => {},
+  onReachedToEnd = () => {},
+  onSlideEnd = () => {},
+  onSlideStart = () => {},
+  reverseSlideEnabled = true,
+  autoReset = DEFAULT_AUTO_RESET,
+  autoResetDelay = DEFAULT_AUTO_RESET_DELAY,
+  animation = DEFAULT_ANIMATION,
+  animationDuration = DEFAULT_ANIMATION_DURATION,
+  dynamicResetEnabled = false,
+  dynamicResetDelaying = false,
+
 }: SlideButtonProps) => {
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
   const [endReached, setEndReached] = React.useState<boolean>(false);
@@ -346,26 +347,6 @@ const SlideButton = ({
 
 export default React.memo(SlideButton);
 
-SlideButton.defaultProps = {
-  height: DEFAULT_HEIGHT,
-  borderRadius: DEFAULT_BORDER_RADIUS,
-  padding: DEFAULT_CONTAINER_PADDING,
-  title: DEFAULT_TITLE,
-  completeThreshold: DEFAULT_COMPLETE_THRESHOLD,
-  disabled: false,
-  reverseSlideEnabled: true,
-  autoReset: DEFAULT_AUTO_RESET,
-  autoResetDelay: DEFAULT_AUTO_RESET_DELAY,
-  animation: DEFAULT_ANIMATION,
-  animationDuration: DEFAULT_ANIMATION_DURATION,
-  dynamicResetEnabled: false,
-  dynamicResetDelaying: false,
-  onSlideStart: () => {},
-  onSlideEnd: () => {},
-  onReachedToStart: () => {},
-  onReachedToEnd: () => {},
-};
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: DEFAULT_CONTAINER_COLOR,
@@ -389,3 +370,4 @@ const styles = StyleSheet.create({
     backgroundColor: DEFAULT_UNDERLAY_COLOR,
   },
 });
+
