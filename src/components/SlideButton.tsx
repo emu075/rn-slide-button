@@ -49,18 +49,142 @@ export type SlideButtonPropsExtends = Omit<
   >;
 
 interface SlideButtonProps extends SlideButtonPropsExtends {
+  /**
+   * Width of the slide button
+   */
   width?: number;
-  disabled?: boolean;
+  
+  /**
+   * Height of the slide button
+   * @default DEFAULT_HEIGHT (56)
+   */
+  height?: number;
+  
+  /**
+   * Border radius of the slide button
+   * @default DEFAULT_BORDER_RADIUS (height / 2)
+   */
+  borderRadius?: number;
+  
+  /**
+   * Padding around the slide button
+   * @default DEFAULT_CONTAINER_PADDING (5)
+   */
+  padding?: number;
+  
+  /**
+   * Threshold percentage to trigger completion
+   * @default DEFAULT_COMPLETE_THRESHOLD (70)
+   */
   completeThreshold?: number;
-  onSlideStart?: () => void;
-  onSlideEnd?: () => void;
-  onReachedToStart?: () => void;
-  onReachedToEnd?: () => void;
-  underlayStyle?: StyleProp<ViewStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Whether the slide button is disabled
+   * @default false
+   */
+  disabled?: boolean;
+  
+  /**
+   * Title text for the slide button
+   * @default DEFAULT_TITLE ('Slide to confirm')
+   */
+  title: string;
+  
+  /**
+   * Style for the title container
+   */
+  titleContainerStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Style for the title text
+   */
+  titleStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Custom icon component
+   */
+  icon?: React.ReactNode;
+  
+  /**
+   * Style for the thumb component
+   */
   thumbStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Style for the container
+   */
+  containerStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Style for the underlay
+   */
+  underlayStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Callback when slide reaches start
+   * @default () => {}
+   */
+  onReachedToStart?: () => void;
+  
+  /**
+   * Callback when slide reaches end
+   * @default () => {}
+   */
+  onReachedToEnd?: () => void;
+  
+  /**
+   * Callback when slide ends
+   * @default () => {}
+   */
+  onSlideEnd?: () => void;
+  
+  /**
+   * Callback when slide starts
+   * @default () => {}
+   */
+  onSlideStart?: () => void;
+  
+  /**
+   * Enable reverse sliding
+   * @default true
+   */
+  reverseSlideEnabled?: boolean;
+  
+  /**
+   * Auto reset after completion
+   * @default DEFAULT_AUTO_RESET (false)
+   */
   autoReset?: boolean;
+  
+  /**
+   * Delay before auto reset
+   * @default DEFAULT_AUTO_RESET_DELAY (1080)
+   */
   autoResetDelay?: number;
+  
+  /**
+   * Enable animation
+   * @default DEFAULT_ANIMATION (false)
+   */
+  animation?: boolean;
+  
+  /**
+   * Animation duration
+   * @default DEFAULT_ANIMATION_DURATION (180)
+   */
+  animationDuration?: number;
+  
+  /**
+   * Enable dynamic reset
+   * @default false
+   */
+  dynamicResetEnabled?: boolean;
+  
+  /**
+   * Dynamic reset delaying
+   * @default false
+   */
+  dynamicResetDelaying?: boolean;
 }
 
 type AnimatedGHContext = {
@@ -83,29 +207,29 @@ export type SlideButtonCommonProps = {
 
 const SlideButton = ({
   width,
-  height,
-  borderRadius,
-  completeThreshold,
-  disabled,
-  padding,
-  title,
+  height = DEFAULT_HEIGHT,
+  borderRadius = DEFAULT_BORDER_RADIUS,
+  padding = DEFAULT_CONTAINER_PADDING,
+  completeThreshold = DEFAULT_COMPLETE_THRESHOLD,
+  disabled = false,
+  title = DEFAULT_TITLE,
   titleContainerStyle,
   titleStyle,
   icon,
   thumbStyle,
   containerStyle,
   underlayStyle,
-  onReachedToStart,
-  onReachedToEnd,
-  onSlideEnd,
-  onSlideStart,
-  reverseSlideEnabled,
-  autoReset,
-  autoResetDelay,
-  animation,
-  animationDuration,
-  dynamicResetEnabled,
-  dynamicResetDelaying,
+  onReachedToStart = () => {},
+  onReachedToEnd = () => {},
+  onSlideEnd = () => {},
+  onSlideStart = () => {},
+  reverseSlideEnabled = true,
+  autoReset = DEFAULT_AUTO_RESET,
+  autoResetDelay = DEFAULT_AUTO_RESET_DELAY,
+  animation = DEFAULT_ANIMATION,
+  animationDuration = DEFAULT_ANIMATION_DURATION,
+  dynamicResetEnabled = false,
+  dynamicResetDelaying = false,
 }: SlideButtonProps) => {
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
   const [endReached, setEndReached] = React.useState<boolean>(false);
@@ -345,26 +469,6 @@ const SlideButton = ({
 };
 
 export default React.memo(SlideButton);
-
-SlideButton.defaultProps = {
-  height: DEFAULT_HEIGHT,
-  borderRadius: DEFAULT_BORDER_RADIUS,
-  padding: DEFAULT_CONTAINER_PADDING,
-  title: DEFAULT_TITLE,
-  completeThreshold: DEFAULT_COMPLETE_THRESHOLD,
-  disabled: false,
-  reverseSlideEnabled: true,
-  autoReset: DEFAULT_AUTO_RESET,
-  autoResetDelay: DEFAULT_AUTO_RESET_DELAY,
-  animation: DEFAULT_ANIMATION,
-  animationDuration: DEFAULT_ANIMATION_DURATION,
-  dynamicResetEnabled: false,
-  dynamicResetDelaying: false,
-  onSlideStart: () => {},
-  onSlideEnd: () => {},
-  onReachedToStart: () => {},
-  onReachedToEnd: () => {},
-};
 
 const styles = StyleSheet.create({
   container: {
