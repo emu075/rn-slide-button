@@ -19,15 +19,65 @@ import {SlideButtonCommonProps} from './SlideButton';
 
 const DEFAULT_ICON_CONTAINER_COLOR = '#FFFFFF';
 
+/**
+ * Props for the SlideButtonThumb component
+ */
 export interface SlideButtonThumbProps extends SlideButtonCommonProps {
+  /**
+   * Gesture handler for pan gestures
+   */
   gestureHandler?:
     | ((event: GestureEvent<PanGestureHandlerEventPayload>) => void)
     | undefined;
+  
+  /**
+   * Custom icon component
+   */
   icon?: React.ReactNode;
+  
+  /**
+   * Style for the thumb component
+   */
   thumbStyle?: StyleProp<ViewStyle>;
+  
+  /**
+   * Callback when animation starts
+   */
   animStarted?: () => void;
+  
+  /**
+   * Callback when animation ends
+   */
   animEnded?: () => void;
+  
+  /**
+   * Whether the component is in RTL mode
+   */
   isRTL: boolean;
+  
+  /**
+   * Enable animation
+   * @default false
+   */
+  animation?: boolean;
+  
+  /**
+   * Animation duration in milliseconds
+   * @default 180
+   */
+  animationDuration?: number;
+  
+  /**
+   * Enable dynamic reset
+   * @default false
+   */
+  dynamicResetEnabled?: boolean;
+  
+  /**
+   * Dynamic reset delaying
+   * @default false
+   */
+  dynamicResetDelaying?: boolean;
 }
 
 const SlideButtonThumb = ({
@@ -42,11 +92,10 @@ const SlideButtonThumb = ({
   animStarted,
   animEnded,
   isRTL,
-  animation,
-  animationDuration,
-  dynamicResetEnabled,
-  dynamicResetDelaying,
-  
+  animation = false,
+  animationDuration = 180,
+  dynamicResetEnabled = false,
+  dynamicResetDelaying = false,
 }: SlideButtonThumbProps) => {
 
   const opacityValue = useSharedValue(1);
@@ -56,7 +105,7 @@ const SlideButtonThumb = ({
     opacityValue.value = withRepeat(
       withTiming(
         0.4,
-        {duration: animationDuration!, easing: Easing.inOut(Easing.ease)},
+        {duration: animationDuration, easing: Easing.inOut(Easing.ease)},
       ),
       repeatCount,
       true,

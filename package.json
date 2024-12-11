@@ -1,6 +1,6 @@
 {
   "name": "rn-slide-button",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple slide button using Reanimated 2 animation library.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
